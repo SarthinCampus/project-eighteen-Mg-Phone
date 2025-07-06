@@ -1,0 +1,10 @@
+You will create two files:
+
+mymodule.py: contains a dictionary student with name, age, and city.
+
+main.py: imports mymodule and prints "My name is [name] from [city]."
+
+📂 Directory: my_module_info
+
+📄 Files: main.py, mymodule.py
+
