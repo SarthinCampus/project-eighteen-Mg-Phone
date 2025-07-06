@@ -1,0 +1,33 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Out put test
+      id: out-put-test
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Out put test
+        setup-command: ''
+        command: python3 my_module_info/main.py
+        input: ''
+        expected-output: "^My name is [A-Za-z ]+ from [A-Za-z ]+\\.\\n?$"
+        comparison-method: regex
+        timeout: 10
+        max-score: 5
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        OUT-PUT-TEST_RESULTS: "${{steps.out-put-test.outputs.result}}"
+      with:
+        runners: out-put-test
